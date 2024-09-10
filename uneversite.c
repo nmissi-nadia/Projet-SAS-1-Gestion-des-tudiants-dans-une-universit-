@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include<time.h>
 #define MAX_ETUD
 // structure d'une date de naissance
 typedef struct{
@@ -59,47 +60,74 @@ int estEtudiantValide(etudiant e, dateN dateActuelle) {
         return 1;
 }
 
+dateN DateAct() {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    dateN date_act;
+    date_act.jour = tm.tm_mday;
+    date_act.mois = tm.tm_mon + 1; // tm_mon commence à 0, donc on ajoute 1
+    date_act.annee = tm.tm_year + 1900; // tm_year commence à 1900, donc on ajoute 1900
+
+    return date_act;
+}
 // Ajouter un étudiant "simple"
-void Ajouter(){
-    tab[nombre].num=nombre+1;
+void Ajouter() {
+    dateN dateact; 
+
+    
+    tab[nombre].num = nombre + 1;
     int i;
-    printf("Entrez le Nom de l'étudiant :");
+    printf("Entrez le Nom de l'étudiant : ");
     getchar();
     gets(tab[nombre].nom);
-    printf("Entrez le Prénom de l'étudiant :");
-    getchar();
+    printf("Entrez le Prénom de l'étudiant : ");
     gets(tab[nombre].prenom);
-    printf("Le département :");
-    printf("1.Math / Info \n");
-    printf("2.Physique / Chimie \n");
-    printf("3.Sciences Sociales \n");
-    printf("4.Sciences Humaines \n");
-    scanf("%d",&i);
-    switch (i)
-    {
-    case 1:
-        strcpy(tab[nombre].dept,"Math / Info");
-        break;
-    case 2:
-        strcpy(tab[nombre].dept,"Physique / Chimie");
-        break;
-    case 3:
-        strcpy(tab[nombre].dept,"Sciences Sociales");
-        break;
-    case 4:
-        strcpy(tab[nombre].dept,"Sciences Humaines");
-        break;
-    }
-    printf("Entrez La date d'Aujourd'hui (jj mm aaaa):");
-     do
-        {
-            printf("Entrez la deadline (jj mm aaaa) : ");
-            scanf("%d %d %d",&tab[nombre].d.jour,&tab[nombre].d.mois,&tab[nombre].d.annee);
 
-        if (!dateValidee(tab[nombre].d.jour, tab[nombre].d.mois, tab[nombre].d.annee)) {
-            printf("Date invalide ! La tâche ne peut pas être créée.\n");
-        }
-        }while(!dateValidee(tab[nombre].d.jour,tab[nombre].d.mois,tab[nombre].d.annee));
+    printf("Le département :\n");
+    printf("1. Math / Info\n");
+    printf("2. Physique / Chimie\n");
+    printf("3. Sciences Sociales\n");
+    printf("4. Sciences Humaines\n");
+    scanf("%d", &i);
+    switch (i) {
+        case 1:
+            strcpy(tab[nombre].dept, "Math / Info");
+            break;
+        case 2:
+            strcpy(tab[nombre].dept, "Physique / Chimie");
+            break;
+        case 3:
+            strcpy(tab[nombre].dept, "Sciences Sociales");
+            break;
+        case 4:
+            strcpy(tab[nombre].dept, "Sciences Humaines");
+            break;
+        default:
+            strcpy(tab[nombre].dept, "Non spécifié");
+            break;
+    }
+    dateact = DateAct();
+    printf("Entrez la date de naissance (jj mm aaaa) : ");
+    scanf("%d %d %d", &tab[nombre].d.jour, &tab[nombre].d.mois, &tab[nombre].d.annee);
+
+    if (!estEtudiantValide(tab[nombre], dateact)) {
+        printf("Erreur : Date de naissance invalide ou étudiant trop jeune (moins de 17 ans).\n");
+        return;
+    }
+    printf("Entrez la moyenne générale : ");
+    scanf("%f", &tab[nombre].moy_gen);
+
+    nombre++;
+    printf("Étudiant ajouté avec succès !\n");
+}
+//fonction pour qjouter plusieurs étudiant
+void Ajout_Multiple(int n){
+    while (n!=0)
+    {
+        Ajouter();
+        n--;
+    }
 }
 // Fonction pour afficher le menu principal
 void afficherMenu() {
@@ -114,134 +142,151 @@ void afficherMenu() {
     printf("0. Quitter\n");
     printf("Votre choix : ");
 }
-void main(){
-int choix, id, jour, mois, annee,ch1, ch4, md;
-    char titre[100];
+void main() {
+    int choix,ch1,ch2,ch3,ch4,ch5,fois;
     do {
         afficherMenu();
-        scanf("%d",&choix);
+        scanf("%d", &choix);
         
         switch (choix) {
             case 1:
-                printf("*******Menu d'Ajout*******\n");
-                printf("1. Ajout Simple\n");
-                printf("2. Ajout Multiple.\n");
-                printf("Votre choix :");
-                printf("%d",&ch1);
-                creerTache();
-                break;
-            
-            case 2:
-            printf("*******Menu d'Affichage*******\n");
-                printf("1. Affichage Simple\n");
-                printf("2. Affichage Trier des tâches par deadline.\n");
-                printf("3. Trier les tâches par ordre alphabétique.\n");
-                printf("4. Afficher les tâches dont le deadline est dans 3 jours ou moins\n");
-                
+                printf("\n****** Ajouter un étudiant ******\n");
+                printf("1. Ajout simple \n");
+                printf("2. Ajout multiple\n");
                 printf("Votre choix : ");
                 scanf("%d", &ch1);
-                switch (ch1)
-                {
-                case 1:
-                    afficherToutesTaches();
-                    break;
-                case 2:
-                    Trie_deadline();
-                    afficherToutesTaches();
-                    break;
-                case 3:
-                    Trie_titre();
-                    afficherToutesTaches();
-                    break;
-                case 4:
-                    AfficherTache3joursdeadline();
-                    break;
-                }
                 
+                if (ch1 == 1) {
+                    Ajouter();
+                } else if (ch1 == 2) {
+                    printf("Entrez le nombre des étudiants à ajouter :");
+                    scanf("%d",&fois);
+                    Ajout_Multiple(fois);
+                    
+                } else {
+                    printf("Choix invalide.\n");
+                } 
                 break;
-            
-            case 3:
-                printf("*******Menu de Recherche*******\n");
-                printf("1. Rechercher par ID\n");
-                printf("2. Rechercher par Titre\n");
-                printf("Votre choix : ");
-                scanf("%d", &ch4);
                 
-                if (ch4 == 1) {
-                    printf("Entrez l'ID de la tâche à rechercher : ");
-                    scanf("%d", &id);
-                    int index = Rechercher_id(id);
-                    if (index != -1) {
-                        afficherTache(tab[index]);
-                    } else {
-                        printf("Tâche non trouvée.\n");
-                    }
-                } else if (ch4 == 2) {
-                    printf("Entrez le titre de la tâche à rechercher : ");
-                    getchar();
-                    gets(titre);
-                    int index = Rechercher_titre(titre);
-                    if (index != -1) {
-                        afficherTache(tab[index]);
-                    } else {
-                        printf("Tâche non trouvée.\n");
-                    }
+            case 2:
+                printf("\n****** Modifier ou supprimer un étudiant ******\n");
+                printf("1. Modifier les informations d'un étudiant\n");
+                printf("2. Supprimer un étudiant\n");
+                printf("Votre choix : ");
+                scanf("%d",&ch2);
+                
+                if (ch2 == 1) {
+                    // Appeler la fonction pour modifier un étudiant
+                    ModifierEtudiant();
+                } else if (ch2 == 2) {
+                    // Appeler la fonction pour supprimer un étudiant
+                    SupprimerEtudiant();
                 } else {
                     printf("Choix invalide.\n");
                 }
                 break;
-            
+                
+            case 3:
+                printf("\n****** Afficher les détails d'un étudiant ******\n");
+                // Appeler la fonction pour afficher les détails d'un étudiant
+                AfficherEtudiant();
+                break;
+                
             case 4:
-                printf("*******Menu de Manipulation*******\n");
-                printf("1. Modification d'une tâche\n");
-                printf("2. Suppression d'une tâche par ID\n");
+                printf("\n****** Calculer la moyenne générale ******\n");
+                printf("1. Calculer la moyenne générale de chaque département\n");
+                printf("2. Calculer la moyenne générale de l'université\n");
+                // Appeler la fonction pour calculer la moyenne générale
+                CalculerMoyenneGenerale();
+                break;
+                
+            case 5:
+                printf("\n****** Statistiques ******\n");
+                printf("1. Nombre total d'étudiants inscrits\n");
+                printf("2. Nombre d'étudiants dans chaque département\n");
+                printf("3. Étudiants avec une moyenne supérieure à un seuil\n");
+                printf("4. Les 3 meilleurs étudiants\n");
+                printf("5. Nombre d'étudiants ayant réussi par département\n");
                 printf("Votre choix : ");
                 scanf("%d", &ch4);
                 
                 switch (ch4) {
                     case 1:
-                        printf("Entrez l'ID de la tâche à modifier : ");
-                        scanf("%d", &id);
-                        printf("1. Modifier la description.\n");
-                        printf("2. Modifier le statut.\n");
-                        printf("3. Modifier la deadline.\n");
-                        printf("Votre choix : ");
-                        scanf("%d", &md);
                         
-                        switch (md) {
-                            case 1:
-                                Modification_description(id);
-                                break;
-                            case 2:
-                                Modification_statut(id);
-                                break;
-                            case 3:
-                                Modification_deadline(id);
-                                break;
-                            default:
-                                printf("Choix invalide.\n");
-                        }
+                        AfficherTotalEtudiants();
                         break;
-                        
                     case 2:
-                        printf("Entrez l'ID de la tâche à supprimer : ");
-                        scanf("%d", &id);
-                        supprimer_par_id(id);
-                        break;
                         
+                        AfficherEtudiantsParDepartement();
+                        break;
+                    case 3:
+                        
+                        AfficherEtudiantsMoyenneSuperieure();
+                        break;
+                    case 4:
+                        
+                        AfficherTop3Etudiants();
+                        break;
+                    case 5:
+                        
+                        AfficherEtudiantsReussite();
+                        break;
                     default:
                         printf("Choix invalide.\n");
                 }
                 break;
-            case 5:
-                afficherStatistiques();
-                break;
+                
             case 6:
-                printf("fin de Saisie !!! Au revoir !\n");
+                printf("\n****** Rechercher un étudiant ******\n");
+                printf("1. Rechercher par nom\n");
+                printf("2. Rechercher par département\n");
+                printf("Votre choix : ");
+                scanf("%d", &ch5);
+                
+                if (ch5 == 1) {
+                    // Rechercher un étudiant par nom
+                    RechercherEtudiantParNom();
+                } else if (ch5 == 2) {
+                    // Rechercher les étudiants par département
+                    RechercherEtudiantsParDepartement();
+                } else {
+                    printf("Choix invalide.\n");
+                }
                 break;
-            
+                
+            case 7:
+                printf("\n****** Trier les étudiants ******\n");
+                printf("1. Tri alphabétique (A-Z ou Z-A)\n");
+                printf("2. Tri par moyenne générale (du plus élevé au plus faible ou inversement)\n");
+                printf("3. Tri selon le statut de réussite\n");
+                printf("Votre choix : ");
+                int ch6;
+                scanf("%d", &ch6);
+                
+                switch (ch6) {
+                    case 1:
+                        // Trier par nom alphabétiquement
+                        TrierEtudiantsParNom();
+                        break;
+                    case 2:
+                        // Trier par moyenne générale
+                        TrierEtudiantsParMoyenne();
+                        break;
+                    case 3:
+                        // Trier selon le statut de réussite
+                        TrierEtudiantsParReussite();
+                        break;
+                    default:
+                        printf("Choix invalide.\n");
+                }
+                break;
+                
+            case 0:
+                printf("fin de saisie .Au revoir !\n");
+                break;
+                
             default:
-                printf("Choix invalide.\n");
+                printf("Choix invalide. Veuillez réessayer.\n");
         }
-    } while (choix != 5);
+    } while (choix != 0);
 }
