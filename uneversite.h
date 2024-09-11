@@ -18,7 +18,7 @@ typedef struct{
 
 // déclaration d'une tableau(université) des étudiants.
     etudiant tab[MAX_ETUD];
-    int nombre=0;
+    int nombre=15;
 
 // vérifier si une annee est bissextile
 int estBissextile(int annee) {
@@ -172,6 +172,7 @@ void RechercherEtudiantParNom(){
     char noom[20];
     int tr=-1;
     printf("Entrez Le Nom à rechercher: ");
+    getchar();
     gets(noom);
      for (int i = 0; i < nombre; i++) {
         if (strcmp(tab[i].nom,noom)==0) {
@@ -183,6 +184,7 @@ void RechercherEtudiantParNom(){
         printf("Aucun étudiant porter cette nom .\n");
     }
 }
+// Afficher la liste des étudiants inscrits dans un département spécifique
 void RechercherEtudiantsParDepartement(char dept[]){
     int tr=-1;
      for (int i = 0; i < nombre; i++) {
@@ -286,6 +288,7 @@ void supprimer_par_id(int id) {
 }
 
 // Statistiques
+// Afficher le nombre total d'étudiants inscrits.
 void AfficherEtudiantsParDepartement(){
     int aa=0,bb=0,cc=0,dd=0,i;
     printf("Nombre d'étudiants dans:\n");
@@ -333,7 +336,7 @@ void AfficherTop3Etudiants(){
     for (i = 0; i < nombre; i++)
     {
         etudiant temp;
-        if(tab[i].moy_gen>tab[i+1].moy_gen)
+        if(tab[i].moy_gen<tab[i+1].moy_gen)
         {
             temp=tab[i];
             tab[i]=tab[i+1];
@@ -419,34 +422,103 @@ void CalculerMoyenneGenerale(){
     printf("La moyenne général pour:%.2f \n",a/aa);
 }
 
-//fonction pour remplir tableau des étudiant pour tester
-void remplir_test(char *filename) {
-    FILE *file = fopen(filename, "r");
-    if (file == NULL) {
-        perror("Erreur d'ouverture de fichier");
-        return;
+// Tri alphabétique des étudiants en fonction de leur nom (de A à Z ou de Z à A).
+void TrierEtudiantsParNomAZ(){
+    int i;
+    for (i = 0; i < nombre; i++)
+    {
+        etudiant temp;
+        if(strcmp(tab[i].nom,tab[i+1].nom)>0)
+        {
+            temp=tab[i];
+            tab[i]=tab[i+1];
+            tab[i+1]=temp;
+        }
     }
-
-    char ligne[256];
-    
-    while (fgets(ligne, sizeof(etudiant), file)!=NULL) {
-        sscanf(ligne, "%d,%s,%s,%d,%d,%d,%s,%f", 
-               &tab[nombre].num, 
-               tab[nombre].nom, 
-               tab[nombre].prenom, 
-               &tab[nombre].d.jour, 
-               &tab[nombre].d.mois, 
-               &tab[nombre].d.annee, 
-               tab[nombre].dept, 
-               &tab[nombre].moy_gen);
-               
-        nombre++;
+    for (i = 0; i < nombre; i++)
+    {
+        printf("%d er place :",i+1);
+        afficheretud(tab[i]);
     }
-    // nombre = i;
-
-    fclose(file);
 }
-
+void TrierEtudiantsParNomZA(){
+    int i;
+    for (i = 0; i < nombre; i++)
+    {
+        etudiant temp;
+        if(strcmp(tab[i].nom,tab[i+1].nom)<0)
+        {
+            temp=tab[i];
+            tab[i]=tab[i+1];
+            tab[i+1]=temp;
+        }
+    }
+    for (i = 0; i < nombre; i++)
+    {
+        printf("%d er place :",i+1);
+        afficheretud(tab[i]);
+    }
+}
+// Tri des étudiants par moyenne générale, du plus élevé au plus faible ou inversement.
+void TrierEtudiantsParMoyenne(){
+    int i;
+    for (i = 0; i < nombre; i++)
+    {
+        etudiant temp;
+        if(tab[i].moy_gen<tab[i+1].moy_gen)
+        {
+            temp=tab[i];
+            tab[i]=tab[i+1];
+            tab[i+1]=temp;
+        }
+    }
+    for (i = 0; i < nombre; i++)
+    {
+        afficheretud(tab[i]);
+    }
+}
+void TrierEtudiantsParMoyenneinverse(){
+    int i;
+    for (i = 0; i < nombre; i++)
+    {
+        etudiant temp;
+        if(tab[i].moy_gen<tab[i+1].moy_gen)
+        {
+            temp=tab[i];
+            tab[i]=tab[i+1];
+            tab[i+1]=temp;
+        }
+    }
+    for (i = 0; i < nombre; i++)
+    {
+        afficheretud(tab[i]);
+    }
+}
+// Tri des étudiants selon leur statut de réussite (ceux ayant une moyenne supérieure ou égale à 10/20).
+void TrierEtudiantsParReussite(){
+    int i;
+    for (i = 0; i < nombre; i++)
+    {
+        etudiant temp;
+        if(tab[i].moy_gen<tab[i+1].moy_gen)
+        {
+            temp=tab[i];
+            tab[i]=tab[i+1];
+            tab[i+1]=temp;
+        }
+    }
+    for (i = 0; i < nombre; i++)
+    {
+        if(tab[i].moy_gen>=10)
+        {
+            afficheretud(tab[i]);
+        }
+        else{
+            break;
+        }
+        
+    }
+}
 // fonction pour afficher le menu principal
 void afficherMenu() {
     printf("\n********* Menu Principal *********\n");
@@ -457,7 +529,6 @@ void afficherMenu() {
     printf("5. Afficher les statistiques\n");
     printf("6. Rechercher un étudiant\n");
     printf("7. Trier un étudiant par\n");
-    printf("8. Remplir le tableau pour teste\n");
     printf("0. Quitter\n");
     printf("Votre choix : ");
 }
