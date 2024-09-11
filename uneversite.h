@@ -423,41 +423,79 @@ void CalculerMoyenneGenerale(){
 }
 
 // Tri alphabétique des étudiants en fonction de leur nom (de A à Z ou de Z à A).
-void TrierEtudiantsParNomAZ(){
-    int i;
-    for (i = 0; i < nombre; i++)
-    {
-        etudiant temp;
-        if(strcmp(tab[i].nom,tab[i+1].nom)>0)
-        {
-            temp=tab[i];
-            tab[i]=tab[i+1];
-            tab[i+1]=temp;
+void TrierEtudiantsParNomAZ_Bulle() {
+    int i, j;
+    etudiant temp;
+    for (i = 0; i < nombre - 1; i++) {
+        for (j = 0; j < nombre - i - 1; j++) {
+            if (strcmp(tab[j].nom, tab[j + 1].nom) > 0) {
+                
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
+            }
         }
     }
-    for (i = 0; i < nombre; i++)
-    {
-        printf("%d er place :",i+1);
+    for (i = 0; i < nombre; i++) {
         afficheretud(tab[i]);
     }
 }
-void TrierEtudiantsParNomZA(){
-    int i;
-    for (i = 0; i < nombre; i++)
-    {
-        etudiant temp;
-        if(strcmp(tab[i].nom,tab[i+1].nom)<0)
-        {
-            temp=tab[i];
-            tab[i]=tab[i+1];
-            tab[i+1]=temp;
+void TrierEtudiantsParNomAZ_Insertion() {
+    int i, j;
+    etudiant temp;
+    for (i = 1; i < nombre; i++) {
+        temp = tab[i];
+        j = i - 1;
+        while (j >= 0 && strcmp(tab[j].nom, temp.nom) > 0) {
+            tab[j + 1] = tab[j];
+            j--;
         }
+        tab[j + 1] = temp;
     }
-    for (i = 0; i < nombre; i++)
-    {
-        printf("%d er place :",i+1);
+    for (i = 0; i < nombre; i++) {
         afficheretud(tab[i]);
     }
+}
+void TrierEtudiantsParNomAZ_Selection() {
+    int i, j, minIndex;
+    etudiant temp;
+    for (i = 0; i < nombre - 1; i++) {
+        minIndex = i;
+        for (j = i + 1; j < nombre; j++) {
+            if (strcmp(tab[j].nom, tab[minIndex].nom) < 0) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            // Échange les étudiants
+            temp = tab[i];
+            tab[i] = tab[minIndex];
+            tab[minIndex] = temp;
+        }
+    }
+    for (i = 0; i < nombre; i++) {
+        printf("%d er place :", i + 1);
+        afficheretud(tab[i]);
+    }
+}
+
+void TrierEtudiantsParNomZA(){
+    int i, j;
+    etudiant temp;
+    for (i = 0; i < nombre - 1; i++) {
+        for (j = 0; j < nombre - i - 1; j++) {
+            if (strcmp(tab[j].nom, tab[j + 1].nom) < 0) {
+                
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
+            }
+        }
+    }
+    for (i = 0; i < nombre; i++) {
+        afficheretud(tab[i]);
+    }
+
 }
 // Tri des étudiants par moyenne générale, du plus élevé au plus faible ou inversement.
 void TrierEtudiantsParMoyenne(){

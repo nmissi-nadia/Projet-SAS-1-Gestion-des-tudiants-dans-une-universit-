@@ -205,7 +205,7 @@ void main() {
                         scanf("%d",&tch1);
                         if (tch1==1)
                         {
-                            TrierEtudiantsParNomAZ();
+                            TrierEtudiantsParNomAZ_Bulle();
                         }else if(tch1==2){
                             TrierEtudiantsParNomZA();
                         }else
