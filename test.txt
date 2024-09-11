@@ -1,0 +1,20 @@
+1;Hazimi;Yasser;3;3;1995;Sciences Sociales;14.5
+2,Smith,John,15,7,1998,Sciences Humaines,18.7
+3,Johnson,Emily,22,11,1997,Physique / Chimie,9.2
+4,Brown,Michael,5,5,1996,Sciences Humaines,7.8
+5,Williams,Sarah,30,1,1999,Math / Info,8.9
+6,Jones,David,12,12,1995,Sciences Humaines,9.1
+7,Garcia,Laura,8,8,1998,Math / Info,17.5
+8,Miller,James,25,6,1997,Sciences Sociales,8.3
+9,Davis,Emma,19,9,1996,Math / Info,10.0
+10,Martinez,Daniel,2,2,1999,Sciences Sociales,8.6
+11,Lopez,Olivia,14,4,1997,Physique / Chimie,9.4
+12,Gonzalez,Christopher,7,7,1998,Sciences Humaines,8.2
+13,Wilson,Ava,21,3,1996,Sciences Sociales,13.8
+14,Anderson,Isabella,10,10,1995,Physique / Chimie,9.3
+15,Thomas,Lucas,18,8,1999,Sciences Humaines,7.9
+16,Taylor,Mia,4,4,1997,Math / Info,8.5
+17,Moore,Alexander,16,6,1998,Sciences Sociales,19.1
+18,Jackson,Sophia,11,11,1996,Sciences Humaines,18.7
+19,Martin,Elijah,3,3,1995,Sciences Sociales,9.2
+20,Lee,Amelia,13,5,1998,Math / Info,12.4
