@@ -190,8 +190,8 @@ void main() {
                 
             case 7:
                 printf("\n****** Trier les étudiants ******\n");
-                printf("1. Tri alphabétique (A-Z ou Z-A)\n");
-                printf("2. Tri par moyenne générale (du plus élevé au plus faible ou inversement)\n");
+                printf("1. Tri alphabétique \n");
+                printf("2. Tri par moyenne générale \n");
                 printf("3. Tri selon le statut de réussite\n");
                 printf("Votre choix : ");
                 int ch6;
@@ -200,7 +200,7 @@ void main() {
                 switch (ch6) {
                     case 1:
                         // printf("\n****** Trier les étudiants ******\n");
-                        // printf("1. Tri alphabétique (A-Z)\n");
+                        printf("******* Tri alphabétique (A-Z) *******\n");
                         // printf("2. Tri alphabétique (Z-A)\n");
                         // scanf("%d",&tch1);
                         // if (tch1==1)
