@@ -199,31 +199,31 @@ void main() {
                 
                 switch (ch6) {
                     case 1:
-                        printf("\n****** Trier les étudiants ******\n");
-                        printf("1. Tri alphabétique (A-Z)\n");
-                        printf("2. Tri alphabétique (Z-A)\n");
-                        scanf("%d",&tch1);
-                        if (tch1==1)
-                        {
+                        // printf("\n****** Trier les étudiants ******\n");
+                        // printf("1. Tri alphabétique (A-Z)\n");
+                        // printf("2. Tri alphabétique (Z-A)\n");
+                        // scanf("%d",&tch1);
+                        // if (tch1==1)
+                        // {
                             TrierEtudiantsParNomAZ_Bulle();
-                        }else if(tch1==2){
-                            TrierEtudiantsParNomZA();
-                        }else
-                            printf("Choix invalide!!\n");
+                        // }else if(tch1==2){
+                        //     TrierEtudiantsParNomZA();
+                        // }else
+                        //     printf("Choix invalide!!\n");
                         
                         break;
                     case 2:
                         printf("\n****** Trier les étudiants ******\n");
                         printf("1. Tri des étudiants par moyenne générale, du plus élevé au plus faible\n");
-                        printf("2. Tri des étudiants par moyenne générale, du plus faible au plus élevé\n");
-                        scanf("%d",&tch2);
-                        if (tch2==1)
-                        {
+                        // printf("2. Tri des étudiants par moyenne générale, du plus faible au plus élevé\n");
+                        // scanf("%d",&tch2);
+                        // if (tch2==1)
+                        // {
                             TrierEtudiantsParMoyenne();
-                        }else if(tch2==2){
-                            TrierEtudiantsParMoyenneinverse();
-                        }else
-                            printf("Choix invalide!!\n");
+                        // }else if(tch2==2){
+                        //     TrierEtudiantsParMoyenneinverse();
+                        // }else
+                        //     printf("Choix invalide!!\n");
                         
                         break;
                     case 3:

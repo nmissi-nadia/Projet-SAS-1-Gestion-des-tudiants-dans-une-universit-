@@ -332,15 +332,16 @@ void AfficherEtudiantsMoyenneSuperieure(int seuil){
 //Afficher les 3 étudiants ayant les meilleures notes.
 
 void AfficherTop3Etudiants(){
-    int i;
-    for (i = 0; i < nombre; i++)
-    {
-        etudiant temp;
-        if(tab[i].moy_gen<tab[i+1].moy_gen)
-        {
-            temp=tab[i];
-            tab[i]=tab[i+1];
-            tab[i+1]=temp;
+    int i,j;
+    etudiant temp;
+    for (i = 0; i < nombre - 1; i++) {
+        for (j = 0; j < nombre - i - 1; j++) {
+            if (tab[j].moy_gen<tab[j+1].moy_gen) {
+                
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
+            }
         }
     }
     for (i = 0; i < 3; i++)
@@ -474,7 +475,6 @@ void TrierEtudiantsParNomAZ_Selection() {
         }
     }
     for (i = 0; i < nombre; i++) {
-        printf("%d er place :", i + 1);
         afficheretud(tab[i]);
     }
 }
@@ -499,50 +499,51 @@ void TrierEtudiantsParNomZA(){
 }
 // Tri des étudiants par moyenne générale, du plus élevé au plus faible ou inversement.
 void TrierEtudiantsParMoyenne(){
-    int i;
-    for (i = 0; i < nombre; i++)
-    {
-        etudiant temp;
-        if(tab[i].moy_gen<tab[i+1].moy_gen)
-        {
-            temp=tab[i];
-            tab[i]=tab[i+1];
-            tab[i+1]=temp;
+ int i, j;
+    etudiant temp;
+    for (i = 0; i < nombre - 1; i++) {
+        for (j = 0; j < nombre - i - 1; j++) {
+            if (tab[j].moy_gen<tab[j+1].moy_gen) {
+                
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
+            }
         }
     }
-    for (i = 0; i < nombre; i++)
-    {
+    for (i = 0; i < nombre; i++) {
         afficheretud(tab[i]);
     }
 }
 void TrierEtudiantsParMoyenneinverse(){
-    int i;
-    for (i = 0; i < nombre; i++)
-    {
-        etudiant temp;
-        if(tab[i].moy_gen<tab[i+1].moy_gen)
-        {
-            temp=tab[i];
-            tab[i]=tab[i+1];
-            tab[i+1]=temp;
+     int i, j;
+    etudiant temp;
+    for (i = 0; i < nombre - 1; i++) {
+        for (j = 0; j < nombre - i - 1; j++) {
+            if (tab[j].moy_gen>tab[j+1].moy_gen) {
+                
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
+            }
         }
     }
-    for (i = 0; i < nombre; i++)
-    {
+    for (i = 0; i < nombre; i++) {
         afficheretud(tab[i]);
     }
 }
 // Tri des étudiants selon leur statut de réussite (ceux ayant une moyenne supérieure ou égale à 10/20).
 void TrierEtudiantsParReussite(){
-    int i;
-    for (i = 0; i < nombre; i++)
-    {
-        etudiant temp;
-        if(tab[i].moy_gen<tab[i+1].moy_gen)
-        {
-            temp=tab[i];
-            tab[i]=tab[i+1];
-            tab[i+1]=temp;
+    int i,j;
+    etudiant temp;
+    for (i = 0; i < nombre - 1; i++) {
+        for (j = 0; j < nombre - i - 1; j++) {
+            if (tab[j].moy_gen<tab[j+1].moy_gen) {
+                
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
+            }
         }
     }
     for (i = 0; i < nombre; i++)
