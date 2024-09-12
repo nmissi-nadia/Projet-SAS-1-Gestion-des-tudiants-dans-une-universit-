@@ -13,7 +13,7 @@ typedef struct{
     char nom[20],prenom[20];
     dateN d;
     char dept[30];
-    float moy_gen;
+    float note_gen;
 }etudiant;
 
 // déclaration d'une tableau(université) des étudiants.
@@ -119,7 +119,7 @@ void Ajouter() {
     }
 
     printf("Entrez la moyenne générale : ");
-    scanf("%f", &tab[nombre].moy_gen);
+    scanf("%f", &tab[nombre].note_gen);
     
     nombre++;
     printf("Étudiant ajouté avec succès !\n");
@@ -139,7 +139,7 @@ void afficheretud(etudiant e) {
     printf("Prénom: %s\n", e.prenom);
     printf("Date de Naissance: %02d/%02d/%04d\n", e.d.jour, e.d.mois, e.d.annee);
     printf("Département: %s\n", e.dept);
-    printf("Moyenne Générale: %.2f\n", e.moy_gen);
+    printf("Moyenne Générale: %.2f\n", e.note_gen);
     printf("---------------------------\n");
 }
 // fonction qui afficher toutes les étudiants 
@@ -154,7 +154,7 @@ void afficherTsEtud() {
                 printf("Prénom: %s\n", tab[i].prenom);
                 printf("Date de Naissance: %02d/%02d/%04d\n", tab[i].d.jour, tab[i].d.mois, tab[i].d.annee);
                 printf("Département: %s\n", tab[i].dept);
-                printf("Moyenne Générale: %f\n", tab[i].moy_gen);
+                printf("Moyenne Générale: %.2f\n", tab[i].note_gen);
                 printf("---------------------------\n");
         }
     }
@@ -262,7 +262,7 @@ void Modification_Etud(int id) {
             break;
         case 5:
             printf("Entrez le Moyen Générale :");
-            scanf("%f",tab[pos].moy_gen);
+            scanf("%f",tab[pos].note_gen);
             break;
         
         }
@@ -317,13 +317,13 @@ void AfficherEtudiantsParDepartement(){
 void AfficherEtudiantsMoyenneSuperieure(int seuil){
     
         for (int i = 0; i < nombre; i++) {
-            if(tab[i].moy_gen>=seuil){
+            if(tab[i].note_gen>=seuil){
                 printf("ID: %d\n", tab[i].num);
                 printf("Nom: %s\n", tab[i].nom);
                 printf("Prénom: %s\n", tab[i].prenom);
                 printf("Date de Naissance: %02d/%02d/%04d\n", tab[i].d.jour, tab[i].d.mois, tab[i].d.annee);
                 printf("Département: %s\n", tab[i].dept);
-                printf("Moyenne Générale: %f\n", tab[i].moy_gen);
+                printf("Moyenne Générale: %f\n", tab[i].note_gen);
                 printf("---------------------------\n");
             }
               
@@ -336,7 +336,7 @@ void AfficherTop3Etudiants(){
     etudiant temp;
     for (i = 0; i < nombre - 1; i++) {
         for (j = 0; j < nombre - i - 1; j++) {
-            if (tab[j].moy_gen<tab[j+1].moy_gen) {
+            if (tab[j].note_gen<tab[j+1].note_gen) {
                 
                 temp = tab[j];
                 tab[j] = tab[j + 1];
@@ -358,19 +358,19 @@ void AfficherEtudiantsReussite(){
     for ( i = 0; i < nombre; i++)
     {
         if(strcmp(tab[i].dept,"Math / Info")==0){
-            if(tab[i].moy_gen>=10)
+            if(tab[i].note_gen>=10)
                 aa++;
         }
         if(strcmp(tab[i].dept,"Physique / Chimie")==0){
-            if(tab[i].moy_gen>=10)
+            if(tab[i].note_gen>=10)
                 bb++;
         }
         if(strcmp(tab[i].dept,"Sciences Sociales")==0){
-            if(tab[i].moy_gen>=10)
+            if(tab[i].note_gen>=10)
                 cc++;
         }
         if(strcmp(tab[i].dept,"Sciences Humaines")==0){
-            if(tab[i].moy_gen>=10)
+            if(tab[i].note_gen>=10)
                 dd++;
         }
         
@@ -388,19 +388,19 @@ void CalculerMoyenneGenerale_Dept(){
     for ( i = 0; i < nombre; i++)
     {
         if(strcmp(tab[i].dept,"Math / Info")==0){
-            a+=tab[i].moy_gen;
+            a+=tab[i].note_gen;
             aa++;
         }
         if(strcmp(tab[i].dept,"Physique / Chimie")==0){
-            b+=tab[i].moy_gen;
+            b+=tab[i].note_gen;
             bb++;
         }
         if(strcmp(tab[i].dept,"Sciences Sociales")==0){
-            c+=tab[i].moy_gen;
+            c+=tab[i].note_gen;
             cc++;
         }
         if(strcmp(tab[i].dept,"Sciences Humaines")==0){
-            d+=tab[i].moy_gen;
+            d+=tab[i].note_gen;
             dd++;
         }
         
@@ -417,7 +417,7 @@ void CalculerMoyenneGenerale(){
     
     for ( i = 0; i < nombre; i++)
     {
-            a+=tab[i].moy_gen;
+            a+=tab[i].note_gen;
             aa++;
     }
     printf("La moyenne général pour:%.2f \n",a/aa);
@@ -503,7 +503,7 @@ void TrierEtudiantsParMoyenne(){
     etudiant temp;
     for (i = 0; i < nombre - 1; i++) {
         for (j = 0; j < nombre - i - 1; j++) {
-            if (tab[j].moy_gen<tab[j+1].moy_gen) {
+            if (tab[j].note_gen<tab[j+1].note_gen) {
                 
                 temp = tab[j];
                 tab[j] = tab[j + 1];
@@ -520,7 +520,7 @@ void TrierEtudiantsParMoyenneinverse(){
     etudiant temp;
     for (i = 0; i < nombre - 1; i++) {
         for (j = 0; j < nombre - i - 1; j++) {
-            if (tab[j].moy_gen>tab[j+1].moy_gen) {
+            if (tab[j].note_gen>tab[j+1].note_gen) {
                 
                 temp = tab[j];
                 tab[j] = tab[j + 1];
@@ -538,7 +538,7 @@ void TrierEtudiantsParReussite(){
     etudiant temp;
     for (i = 0; i < nombre - 1; i++) {
         for (j = 0; j < nombre - i - 1; j++) {
-            if (tab[j].moy_gen<tab[j+1].moy_gen) {
+            if (tab[j].note_gen<tab[j+1].note_gen) {
                 
                 temp = tab[j];
                 tab[j] = tab[j + 1];
@@ -548,7 +548,7 @@ void TrierEtudiantsParReussite(){
     }
     for (i = 0; i < nombre; i++)
     {
-        if(tab[i].moy_gen>=10)
+        if(tab[i].note_gen>=10)
         {
             afficheretud(tab[i]);
         }
